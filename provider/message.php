@@ -15,6 +15,9 @@ class Message
 
     private $status;
 
+    private $parent;
+    private $order;
+
     function __construct(string $msg, $from, array $recipients)
     {
         $this->recipients = $recipients;
@@ -44,9 +47,27 @@ class Message
         return $this->status;
     }
 
+    function setParent(Message $parent = null) {
+        $this->parent = $parent;
+    }
+
+    function getParent(): Message
+    {
+        return $this->parent;
+    }
+
+    function setOrder(int $order = 0) {
+        $this->order = $order;
+    }
+
+    function getOrder(): int
+    {
+        return $this->order;
+    }
+
     public function __toString()
     {
         $recipientsStr = implode(',', $this->recipients);
-        return "Message: " . $this->msg . ", recepients: " . $recipientsStr;
+        return "Message: " . $this->msg . ", recipients: " . $recipientsStr;
     }
 }

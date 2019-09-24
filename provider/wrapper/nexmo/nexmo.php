@@ -9,29 +9,30 @@ class Nexmo implements IProvider
 {
     private $client;
 
-    function __construct(object $config)
+    function __construct()
     {
-        $apiKey = $config->apikey;
-        $apiSecret = $config->apisecret;
+        $config = Config::get($this->name());
 
-        $credentials = new \Nexmo\Client\Credentials\Basic($apiKey, $apiSecret);
-        $this->client = $client = new \Nexmo\Client($credentials);
+        $credentials = new \Nexmo\Client\Credentials\Basic($config->apikey, $config->apisecret);
+        $this->client = $client = new \Nexmo\Client($credentials, ['base_api_url' => $config->url]);
     }
 
     public function sendMessage(Message $msg)
     {
-        $this->client->message->send([
-            'to' => $msg->getRecipients()[0],
-            'text' => $msg->getMessage(),
-            'from' => $msg->getFrom(),
-        ]);
-
-        print("Nexmo send sms $msg");
+        foreach ($msg->getRecipients() as $recipient) {
+            $this->client->message->send([
+                'to' => $recipient,
+                'text' => $msg->getMessage(),
+                'from' => $msg->getFrom(),
+            ]);
+        }
     }
 
     public function sendMessages(array $messages)
     {
-        // TODO: Implement sendMessages() method.
+        foreach ($messages as $msg) {
+            $this->sendMessage($msg);
+        }
     }
 
     public function name(): string
@@ -40,4 +41,4 @@ class Nexmo implements IProvider
     }
 }
 
-Providers::addProvider(new Nexmo(Config::get('nexmo')));
+Providers::addProvider(new Nexmo());

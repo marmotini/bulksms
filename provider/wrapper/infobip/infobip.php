@@ -9,30 +9,36 @@ class InfoBip implements IProvider
 {
     private $client;
 
-    function __construct(object $config)
+    function __construct()
     {
-        $user = $config->username;
-        $pass = $config->password;
+        $config = Config::get($this->name());
 
-        $auth = new \infobip\api\configuration\BasicAuthConfiguration($user, $pass);
+        $auth = new \infobip\api\configuration\BasicAuthConfiguration($config->username, $config->password);
         $this->client = new \infobip\api\client\SendSingleTextualSms($auth);
     }
 
     public function sendMessage(Message $message)
     {
+        $destinations = array();
+        foreach ($message->getRecipients() as $phoneNumber) {
+            $destination = new \infobip\api\model\Destination();
+            $destination->setTo($phoneNumber);
+            $destinations[] = $destination;
+        }
+
         $body = \infobip\api\model\sms\mt\send\textual\SMSTextualRequest();
-        $body->setTo($message->getRecipients()[0]);
+        $body->setDestinations($destinations);
         $body->setText($message->getMessage());
         $body->setFrom($message->getFrom());
 
         $response = $this->client->execute($body);
-
-        print("Infobip send sms $message");
     }
 
     public function sendMessages(array $messages)
     {
-
+        foreach ($messages as $msg) {
+            $this->sendMessage($msg);
+        }
     }
 
     public function name(): string
@@ -41,4 +47,4 @@ class InfoBip implements IProvider
     }
 }
 
-Providers::addProvider(new InfoBip(Config::get('infobip')));
+Providers::addProvider(new InfoBip());

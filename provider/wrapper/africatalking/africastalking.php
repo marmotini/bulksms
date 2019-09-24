@@ -9,26 +9,30 @@ class AfricaTalking implements IProvider
 {
     private $service;
 
-    function __construct(object $config)
+    function __construct()
     {
-        $username = $config->username;
-        $apiKey = $config->apikey;
-        $this->service = new \AfricasTalking\SDK\AfricasTalking($username, $apiKey);
+        $config = Config::get($this->name());
+        $this->service = new \AfricasTalking\SDK\AfricasTalking($config->username, $config->apikey);
     }
 
     public function sendMessage(Message $msg)
     {
-        $this->service->sms()->send([
-            'to' => $msg->getRecipients()[0],
+        return $this->service->sms()->send([
+            'to' => $msg->getRecipients(),
             'message' => $msg->getMessage(),
-            'from' => $msg->getFrom(),
+//            'from' => $msg->getFrom(),
             'enqueue' => 1,
+            'type'=> 'text',
         ]);
     }
 
     public function sendMessages(array $messages)
     {
-        // TODO: Implement sendMessages() method.
+        foreach ($messages as $msg) {
+            $resp = $this->sendMessage($msg);
+            echo '<pre>';
+            var_dump($resp);
+        }
     }
 
     public function name(): string
@@ -37,4 +41,4 @@ class AfricaTalking implements IProvider
     }
 }
 
-Providers::addProvider(new AfricaTalking(Config::get('africatalking')));
+Providers::addProvider(new AfricaTalking());
