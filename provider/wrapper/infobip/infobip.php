@@ -30,9 +30,11 @@ class InfoBip implements IProvider
         print("Infobip send sms $message");
     }
 
-    public function sendMessages(array $messages) {
+    public function sendMessages(array $messages)
+    {
 
     }
+
     public function name(): string
     {
         return "infobip";
