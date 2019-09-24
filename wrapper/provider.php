@@ -7,6 +7,7 @@ include_once "providers/nexmo/nexmo.php";
 use bulksms\wrapper\providers\africatalking\AfricaTalking;
 use bulksms\wrapper\providers\infobip\InfoBip;
 use bulksms\wrapper\providers\nexmo\Nexmo;
+use bulksms\wrapper\providers\BulkSmsException;
 
 Providers::addProvider(new AfricaTalking());
 Providers::addProvider(new InfoBip());
@@ -18,8 +19,8 @@ class Providers
 
     public static function addProvider(object $impl)
     {
-        if (is_null($impl)) {
-            return;
+        if (is_null($impl) || $impl->name() == "") {
+            throw new BulkSmsException("invalid provider implementation");
         }
 
         if (!array_key_exists($impl->name(), self::$providers)) {

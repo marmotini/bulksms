@@ -37,6 +37,7 @@ class Message
 
     public function __toString()
     {
-        return "Message: " . $this->msg . ", recepients: " . implode(',', $this->recipients);
+        $recipientsStr = implode(',', $this->recipients);
+        return "Message: " . $this->msg . ", recepients: " . $recipientsStr;
     }
 }

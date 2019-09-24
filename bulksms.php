@@ -17,7 +17,7 @@ class BulkSms
 
     function sendMessage(Message $message)
     {
-        if (sizeof($message->getMessage()) == 0) {
+        if (strlen($message->getMessage()) == 0) {
             return;
         }
 
