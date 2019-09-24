@@ -1,16 +1,18 @@
 <?php namespace bulksms\provider\wrapper\nexmo;
 
-use bulksms\provider\wrapper;
+use bulksms\Config;
+use bulksms\provider\Providers;
+use bulksms\provider\wrapper\IProvider;
 use bulksms\provider\Message;
 
-class Nexmo implements \bulksms\provider\wrapper\IProvider
+class Nexmo implements IProvider
 {
     private $client;
 
-    function __construct(array $config)
+    function __construct(object $config)
     {
-        $apiKey = "";
-        $apiSecret = "";
+        $apiKey = $config->apikey;
+        $apiSecret = $config->apisecret;
 
         $credentials = new \Nexmo\Client\Credentials\Basic($apiKey, $apiSecret);
         $this->client = $client = new \Nexmo\Client($credentials);
@@ -18,6 +20,12 @@ class Nexmo implements \bulksms\provider\wrapper\IProvider
 
     public function sendMsg(Message $msg)
     {
+        $this->client->message->send([
+            'to' => $msg->getRecipients()[0],
+            'text' => $msg->getMessage(),
+            'from' => $msg->getFrom(),
+        ]);
+
         print("Nexmo send sms $msg");
     }
 
@@ -26,3 +34,5 @@ class Nexmo implements \bulksms\provider\wrapper\IProvider
         return "nexmo";
     }
 }
+
+Providers::addProvider(new Nexmo(Config::get('nexmo')));

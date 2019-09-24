@@ -1,24 +1,29 @@
 <?php namespace bulksms\provider\wrapper\africatalking;
 
+use bulksms\Config;
 use bulksms\provider\Message;
-use bulksms\provider\wrapper;
+use bulksms\provider\Providers;
+use bulksms\provider\wrapper\IProvider;
 
-use AfricasTalking\SDK\AfricasTalking;
-
-class AfricaTalking implements \bulksms\provider\wrapper\IProvider
+class AfricaTalking implements IProvider
 {
     private $service;
 
-    function __construct(array $configs)
+    function __construct(object $config)
     {
-        $username = 'username';
-        $apiKey = 'apiKey';
-        $this->service = new AfricasTalking($username, $apiKey);
+        $username = $config->username;
+        $apiKey = $config->apikey;
+        $this->service = new \AfricasTalking\SDK\AfricasTalking($username, $apiKey);
     }
 
     public function sendMsg(Message $msg)
     {
-        print("Africa talking send sms $msg");
+        $this->service->sms()->send([
+            'to' => $msg->getRecipients()[0],
+            'message' => $msg->getMessage(),
+            'from' => $msg->getFrom(),
+            'enqueue' => 1,
+        ]);
     }
 
     public function name(): string
@@ -26,3 +31,5 @@ class AfricaTalking implements \bulksms\provider\wrapper\IProvider
         return "africatalking";
     }
 }
+
+Providers::addProvider(new AfricaTalking(Config::get('africatalking')));

@@ -1,13 +1,22 @@
 <?php namespace bulksms;
 
-class Config {
+use bulksms\provider\wrapper\BulkSmsException;
+
+class Config
+{
     private static $configFileName = "config.json";
-	private static $config;
-	
-	public static function get(string $name) {
-		
-	}
-	
+    private static $config;
+
+    public static function get(string $name): object
+    {
+        $config = self::loadConfig();
+        if (property_exists($config, $name)) {
+            return $config->{$name};
+        }
+
+        return (object)[];
+    }
+
     public static function updateConfigProvider(string $provider)
     {
         if (strlen($provider) < 1) {
@@ -15,9 +24,6 @@ class Config {
         }
 
         $config = self::loadConfig();
-        if (is_null($config)) {
-            $config = ( object)array("provider" => $provider);
-        }
 
         $config->provider = $provider;
 
@@ -29,27 +35,25 @@ class Config {
 
     public static function getConfigProvider(): ?string
     {
-        $config = self::loadConfig();
-        if (is_null($config)) {
-            return null;
-        }
-
-        return $config->provider;
+        return self::loadConfig()->provider;
     }
 
     private static function loadConfig(): ?object
     {
-		if (!is_null(self::$config)) {
-			return self::$config;
-		}
-		
+        if (!is_null(self::$config)) {
+            return self::$config;
+        }
+
         $configContent = file_get_contents(self::$configFileName);
         if (strlen($configContent) < 1) {
             return null;
         }
 
         self::$config = json_decode($configContent);
-		
-		return self::$config;
+        if (empty(self::$config)) {
+            throw  new BulkSmsException("Config error");
+        }
+
+        return self::$config;
     }
 }

@@ -23,16 +23,25 @@ class BulkSms
         }
 
         $chunks = str_split($message->getMessage(), 918);
-        $this->provider->sendMsg($message, $message->getRecipients());
+
+        try{
+            $this->provider->sendMsg($message, $message->getRecipients());
+        } catch (\Exception $e) {
+            echo $e;
+        }
+
     }
 
-    function sendMessages(array $messages) {
+    function sendMessages(array $messages)
+    {
         foreach ($messages as $msg) {
             $this->sendMessage($msg);
         }
     }
 }
 
-Config::updateConfigProvider("nexmo");
+//Config::updateConfigProvider("nexmo");
+Config::updateConfigProvider("africatalking");
+//Config::updateConfigProvider("infobip");
 $bulkSms = new BulkSms();
-$bulkSms->sendMessage(new Message("Hello testing", ["0746198837"]));
+$bulkSms->sendMessages([new Message("Hello testing", '0746198837', ["0746198837"])]);

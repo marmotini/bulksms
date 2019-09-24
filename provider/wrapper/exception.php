@@ -1,3 +1,3 @@
 <?php namespace bulksms\provider\wrapper;
 
-class BulkSmsException extends Exception{}
+class BulkSmsException extends \Exception{}
