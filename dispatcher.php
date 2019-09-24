@@ -1,9 +1,12 @@
-<?php
+<?php namespace bulksms\dispatcher;
 
-// Listens to queue messages and sends the sms to the client
+include_once "autoloader.php";
+include_once "provider/provider.php";
+include_once "provider/wrapper/provider-wrapper.php";
+include_once "exception/bulksms-exception.php";
+
 use bulksms\Config;
 use bulksms\exception\BulkSmsException;
-use bulksms\provider\Providers;
 use bulksms\queue\Queue;
 
 class Dispatcher
@@ -12,7 +15,7 @@ class Dispatcher
 
     public static function dispatch()
     {
-        self:$provider = Providers::getProvider(Config::getConfigProvider());
+        self:$provider = \bulksms\provider\Providers::getProvider(Config::getConfigProvider());
 
         if (is_null(self::$provider))
             throw new BulkSmsException("provider implementation is missing");
@@ -22,3 +25,6 @@ class Dispatcher
         });
     }
 }
+
+Queue::setup();
+Dispatcher::dispatch();

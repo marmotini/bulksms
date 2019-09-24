@@ -103,4 +103,8 @@ class Message
         $recipientsStr = implode(',', $this->recipients);
         return "Message: " . $this->msg . ", recipients: " . $recipientsStr;
     }
+
+    public function save(){
+
+    }
 }

@@ -41,3 +41,6 @@ sudo rabbitmqctl set_permissions -p / admin ".*" ".*" ".*"
 
 # Setup RabbitMq web management console
 sudo rabbitmq-plugins enable rabbitmq_management
+
+# Install php dependency
+sudo apt-get install php-bcmath

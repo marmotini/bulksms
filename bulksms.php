@@ -1,13 +1,8 @@
 <?php namespace bulksms;
 
 include_once "autoloader.php";
-include_once "provider/provider.php";
-include_once "provider/wrapper/provider-wrapper.php";
-include_once "exception/bulksms-exception.php";
 
 use bulksms\provider\Message;
-use bulksms\provider\Providers;
-use bulksms\exception\BulkSmsException;
 use bulksms\queue\Queue;
 
 class BulkSms
@@ -52,7 +47,7 @@ class BulkSms
     private function send(array $messages)
     {
         foreach ($messages as $msg) {
-            $msg->
+            // TODO: Save msg to the database and update ID number
             Queue::publish($msg);
         }
     }

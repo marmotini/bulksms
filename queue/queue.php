@@ -1,9 +1,6 @@
 <?php namespace bulksms\queue;
 
-use bulksms\provider\Message;
-use \PhpAmqpLib\Connection\AMQPStreamConnection;
 use \PhpAmqpLib\Exchange\AMQPExchangeType;
-use \PhpAmqpLib\Message\AMQPMessage;
 
 use bulksms\Config;
 
@@ -13,26 +10,39 @@ class Queue
     private static $connection;
     private static $channel;
 
+    private static $consumerRunning = false;
+
     public static function setup()
     {
-        self::$config = Config::get('rabbitmq');
-        $connection = new AMQPStreamConnection(
-            self::$config->host,
-            self::$config->port,
-            self::$config->user,
-            self::$config->pass,
-            self::$config->vhost);
+        try {
+            self::$config = Config::get('rabbitmq');
+            $connection = new \PhpAmqpLib\Connection\AMQPStreamConnection(
+                self::$config->host,
+                self::$config->port,
+                self::$config->user,
+                self::$config->pass,
+                self::$config->vhost,
+            false,
+                'AMQPLAIN',
+                null,
+                'en_US',
+                60,
+                60, null, false, 30);
 
-        self::$channel = $connection->channel();
+            self::$channel = $connection->channel();
 
-        self::$channel->queue_declare(self::$config->queue, false, true, false, false);
-        self::$channel->exchange_declare(self::$config->exchange, AMQPExchangeType::DIRECT, false, true, false);
-        self::$channel->queue_bind(self::$config->queue, self::$config->exchange);
-
+            self::$channel->queue_declare(self::$config->queue, false, true, false, false);
+            self::$channel->exchange_declare(self::$config->exchange, AMQPExchangeType::DIRECT, false, true, false);
+            self::$channel->queue_bind(self::$config->queue, self::$config->exchange);
+        } catch (\Exception $e) {
+            echo $e;
+        }
     }
 
     public static function consume($cb)
     {
+        self::$consumerRunning = true;
+
         self::$channel->basic_consume(
             self::$config->queue,
             self::$config->consumertag,
@@ -41,15 +51,23 @@ class Queue
             false,
             false,
             $cb);
+
+        if (self::$consumerRunning) {
+            while (self::$channel->is_consuming()) {
+                self::$channel->wait();
+            }
+
+            self::$consumerRunning = false;
+        }
     }
 
-    public static function publish(Message $msg)
+    public static function publish(\bulksms\provider\Message $msg)
     {
-        $message = new AMQPMessage(
+        $message = new \PhpAmqpLib\Message\AMQPMessage(
             json_encode($msg),
             array(
                 'content_type' => 'text/plain',
-                'delivery_mode' => AMQPMessage::DELIVERY_MODE_PERSISTENT
+                'delivery_mode' => \PhpAmqpLib\Message\AMQPMessage::DELIVERY_MODE_PERSISTENT
             )
         );
 
@@ -63,4 +81,4 @@ class Queue
     }
 }
 
-register_shutdown_function(Queue::shutdown);
+//register_shutdown_function('Queue::shutdown');
