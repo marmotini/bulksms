@@ -8,13 +8,12 @@ include_once "exception/bulksms-exception.php";
 use bulksms\provider\Message;
 use bulksms\provider\Providers;
 use bulksms\exception\BulkSmsException;
+use bulksms\queue\Queue;
 
 class BulkSms
 {
     private $chunkPaginationChars = 7;
     private $chunkLimit = 918;
-
-    private $provider;
 
     private function getMessageChunks(Message $msg): array
     {
@@ -52,10 +51,9 @@ class BulkSms
 
     private function send(array $messages)
     {
-        if (sizeof($messages) > 1) {
-            $this->provider->sendMessages($messages);
-        } else {
-            $this->provider->sendMessage($messages[0]);
+        foreach ($messages as $msg) {
+            $msg->
+            Queue::publish($msg);
         }
     }
 
@@ -65,18 +63,7 @@ class BulkSms
             return;
         }
 
-        $this->provider = Providers::getProvider(Config::getConfigProvider());
-
-        if (is_null($this->provider))
-            throw new BulkSmsException("provider implementation is missing");
-
-        $chunks = $this->getMessageChunks($msg);
-
-        try {
-            $this->send($chunks);
-        } catch (\Exception $e) {
-            echo $e;
-        }
+        $this->send($this->getMessageChunks($msg));
     }
 
     function sendMessages(array $messages)
@@ -86,6 +73,8 @@ class BulkSms
         }
     }
 }
+
+Queue::setup();
 
 Config::updateConfigProvider("nexmo");
 //Config::updateConfigProvider("africatalking");

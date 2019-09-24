@@ -9,6 +9,7 @@ abstract class MessageStatus
 
 class Message
 {
+    private $id;
     private $msg;
     private $recipients;
     private $from;
@@ -27,9 +28,29 @@ class Message
         $this->status = MessageStatus::Sending;
     }
 
+    function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    function getId()
+    {
+        return $this->id;
+    }
+
+    function setMessage($msg)
+    {
+        $this->msg = $msg;
+    }
+
     function getMessage(): string
     {
         return $this->msg;
+    }
+
+    function setFrom($from)
+    {
+        $this->from = $from;
     }
 
     function getFrom(): string
@@ -37,9 +58,19 @@ class Message
         return $this->from;
     }
 
+    function setRecipients(array $recipients)
+    {
+        $this->recipients = $recipients;
+    }
+
     function getRecipients(): array
     {
         return $this->recipients;
+    }
+
+    function setStatus($status)
+    {
+        $this->status = $status;
     }
 
     function getStatus(): string
@@ -47,7 +78,8 @@ class Message
         return $this->status;
     }
 
-    function setParent(Message $parent = null) {
+    function setParent(Message $parent = null)
+    {
         $this->parent = $parent;
     }
 
@@ -56,7 +88,8 @@ class Message
         return $this->parent;
     }
 
-    function setOrder(int $order = 0) {
+    function setOrder(int $order = 0)
+    {
         $this->order = $order;
     }
 
