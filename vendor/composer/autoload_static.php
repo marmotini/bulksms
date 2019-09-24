@@ -72,6 +72,7 @@ class ComposerStaticInitfb83f6a67b4f6af011d72e1fdc22e067
             'Psr\\Http\\Message\\' => 17,
             'Psr\\Http\\Client\\' => 16,
             'Prophecy\\' => 9,
+            'PhpAmqpLib\\' => 11,
             'PackageVersions\\' => 16,
         ),
         'N' => 
@@ -233,6 +234,10 @@ class ComposerStaticInitfb83f6a67b4f6af011d72e1fdc22e067
         'Prophecy\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpspec/prophecy/src/Prophecy',
+        ),
+        'PhpAmqpLib\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/php-amqplib/php-amqplib/PhpAmqpLib',
         ),
         'PackageVersions\\' => 
         array (

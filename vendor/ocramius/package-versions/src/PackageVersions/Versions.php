@@ -24,6 +24,7 @@ final class Versions
   'nexmo/client' => '2.0.0@664082abac14f6ab9ceec9abaf2e00aeb7c17333',
   'nexmo/client-core' => '2.0.0@f73f7c50ec14b94dc7fda60cc13298f5901fc785',
   'ocramius/package-versions' => '1.4.0@a4d4b60d0e60da2487bd21a2c6ac089f85570dbb',
+  'php-amqplib/php-amqplib' => 'v2.10.0@04e5366f032906d5f716890427e425e71307d3a8',
   'php-http/guzzle6-adapter' => 'v2.0.1@6074a4b1f4d5c21061b70bab3b8ad484282fe31f',
   'php-http/httplug' => 'v2.0.0@b3842537338c949f2469557ef4ad4bdc47b58603',
   'php-http/promise' => 'v1.0.0@dc494cdc9d7160b9a09bd5573272195242ce7980',
@@ -61,7 +62,7 @@ final class Versions
   'symfony/polyfill-ctype' => 'v1.12.0@550ebaac289296ce228a706d0867afc34687e3f4',
   'theseer/tokenizer' => '1.1.3@11336f6f84e16a720dae9d8e6ed5019efa85a0f9',
   'webmozart/assert' => '1.5.0@88e6d84706d09a236046d686bbea96f07b3a34f4',
-  '__root__' => 'dev-master@e7a99cc33ab35d70b59fa9857fe587db00bdc3b6',
+  '__root__' => 'dev-master@08a9fe6726cc9c16d4173aed7b66d084ab7c01b6',
 );
 
     private function __construct()
