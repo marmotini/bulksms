@@ -52,6 +52,11 @@ class ComposerStaticInitfb83f6a67b4f6af011d72e1fdc22e067
             'GuzzleHttp\\Promise\\' => 19,
             'GuzzleHttp\\' => 11,
         ),
+        'A' => 
+        array (
+            'AfricasTalking\\SDK\\Tests\\' => 25,
+            'AfricasTalking\\SDK\\' => 19,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
@@ -103,6 +108,14 @@ class ComposerStaticInitfb83f6a67b4f6af011d72e1fdc22e067
         'GuzzleHttp\\' => 
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/guzzle/src',
+        ),
+        'AfricasTalking\\SDK\\Tests\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/africastalking/africastalking/tests',
+        ),
+        'AfricasTalking\\SDK\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/africastalking/africastalking/src',
         ),
     );
 

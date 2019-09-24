@@ -1,6 +1,6 @@
-<?php namespace bulksms\wrapper\providers;
+<?php namespace bulksms\provider\wrapper;
 
-use bulksms\wrapper\Message;
+use bulksms\provider\Message;
 
 interface IProvider
 {

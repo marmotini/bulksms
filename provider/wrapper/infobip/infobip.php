@@ -1,9 +1,9 @@
-<?php namespace bulksms\wrapper\providers\infobip;
+<?php namespace bulksms\provider\wrapper\infobip;
 
-use bulksms\wrapper\Message;
-use bulksms\wrapper\Providers;
+use bulksms\provider\Message;
+use bulksms\provider\wrapper;
 
-class InfoBip implements \bulksms\wrapper\providers\IProvider
+class InfoBip implements \bulksms\provider\wrapper\IProvider
 {
     public function sendMsg(Message $msg)
     {

@@ -1,13 +1,13 @@
-<?php namespace bulksms\wrapper;
+<?php namespace bulksms\provider;
 
-include_once "providers/africatalking/africastalking.php";
-include_once "providers/infobip/infobip.php";
-include_once "providers/nexmo/nexmo.php";
+include_once "wrapper/africatalking/africastalking.php";
+include_once "wrapper/infobip/infobip.php";
+include_once "wrapper/nexmo/nexmo.php";
 
-use bulksms\wrapper\providers\africatalking\AfricaTalking;
-use bulksms\wrapper\providers\infobip\InfoBip;
-use bulksms\wrapper\providers\nexmo\Nexmo;
-use bulksms\wrapper\providers\BulkSmsException;
+use bulksms\provider\wrapper\africatalking\AfricaTalking;
+use bulksms\provider\wrapper\infobip\InfoBip;
+use bulksms\provider\wrapper\nexmo\Nexmo;
+use bulksms\provider\wrapper\BulkSmsException;
 
 Providers::addProvider(new AfricaTalking());
 Providers::addProvider(new InfoBip());

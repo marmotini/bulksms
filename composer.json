@@ -1,5 +1,6 @@
 {
     "require": {
-        "nexmo/client": "^2.0"
+        "nexmo/client": "^2.0",
+        "africastalking/africastalking": "^2.3"
     }
 }

@@ -1,9 +1,9 @@
-<?php namespace bulksms\wrapper\providers\africatalking;
+<?php namespace bulksms\provider\wrapper\africatalking;
 
-use bulksms\wrapper\Message;
-use bulksms\wrapper\Providers;
+use bulksms\provider\Message;
+use bulksms\provider\wrapper;
 
-class AfricaTalking implements \bulksms\wrapper\providers\IProvider
+class AfricaTalking implements \bulksms\provider\wrapper\IProvider
 {
     public function sendMsg(Message $msg)
     {

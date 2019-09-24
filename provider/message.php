@@ -1,4 +1,4 @@
-<?php namespace bulksms\wrapper;
+<?php namespace bulksms\provider;
 
 abstract class MessageStatus
 {

@@ -1,10 +1,10 @@
 <?php namespace bulksms;
 
 include_once "autoloader.php";
-include_once "wrapper/provider.php";
+include_once "provider/provider.php";
 
-use bulksms\wrapper\Message;
-use  bulksms\wrapper\Providers;
+use bulksms\provider\Message;
+use bulksms\provider\Providers;
 
 class BulkSms
 {

@@ -1,9 +1,9 @@
-<?php namespace bulksms\wrapper\providers\nexmo;
+<?php namespace bulksms\provider\wrapper\nexmo;
 
-use bulksms\wrapper\Providers;
-use bulksms\wrapper\Message;
+use bulksms\provider\wrapper;
+use bulksms\provider\Message;
 
-class Nexmo implements \bulksms\wrapper\providers\IProvider
+class Nexmo implements \bulksms\provider\wrapper\IProvider
 {
     public function sendMsg(Message $msg)
     {

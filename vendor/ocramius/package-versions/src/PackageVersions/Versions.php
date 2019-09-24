@@ -14,6 +14,7 @@ final class Versions
 {
     public const ROOT_PACKAGE_NAME = '__root__';
     public const VERSIONS          = array (
+  'africastalking/africastalking' => '2.3.0@3e2c5e999e1ba2949f7752b6a39715bdd9133388',
   'guzzlehttp/guzzle' => '6.3.3@407b0cb880ace85c9b63c5f9551db498cb2d50ba',
   'guzzlehttp/promises' => 'v1.3.1@a59da6cf61d80060647ff4d3eb2c03a2bc694646',
   'guzzlehttp/psr7' => '1.6.1@239400de7a173fe9901b9ac7c06497751f00727a',
@@ -29,7 +30,7 @@ final class Versions
   'psr/http-message' => '1.0.1@f6561bf28d520154e4b0ec72be95418abe6d9363',
   'ralouphie/getallheaders' => '3.0.3@120b605dfeb996808c31b6477290a714d356e822',
   'zendframework/zend-diactoros' => '2.1.3@279723778c40164bcf984a2df12ff2c6ec5e61c1',
-  '__root__' => 'dev-master@b2713da036d0a525c7cd1e903710e4c63350b201',
+  '__root__' => 'dev-master@ec78946190809ef5e5c2960aac648af90017ec3f',
 );
 
     private function __construct()

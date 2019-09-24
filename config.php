@@ -2,7 +2,7 @@
 
 class Config {
     private static $configFileName = "config.json";
-
+ 
     public static function updateConfigProvider(string $provider)
     {
         if (strlen($provider) < 1) {
