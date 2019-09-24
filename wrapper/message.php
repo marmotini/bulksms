@@ -13,10 +13,30 @@ class Message
     private $recipients;
     private $status;
 
-    function __construct($msg, $recipients)
+    function __construct(string $msg, array $recipients)
     {
         $this->recipients = $recipients;
         $this->msg = $msg;
         $this->status = MessageStatus::Sending;
+    }
+
+    function getMessage(): string
+    {
+        return $this->msg;
+    }
+
+    function getRecipients(): array
+    {
+        return $this->recipients;
+    }
+
+    function getStatus(): string
+    {
+        return $this->status;
+    }
+
+    public function __toString()
+    {
+        return "Message: " . $this->msg . ", recepients: " . implode(',', $this->recipients);
     }
 }
