@@ -2,7 +2,12 @@
 
 class Config {
     private static $configFileName = "config.json";
- 
+	private static $config;
+	
+	public static function get(string $name) {
+		
+	}
+	
     public static function updateConfigProvider(string $provider)
     {
         if (strlen($provider) < 1) {
@@ -34,11 +39,17 @@ class Config {
 
     private static function loadConfig(): ?object
     {
+		if (!is_null(self::$config)) {
+			return self::$config;
+		}
+		
         $configContent = file_get_contents(self::$configFileName);
         if (strlen($configContent) < 1) {
             return null;
         }
 
-        return json_decode($configContent);
+        self::$config = json_decode($configContent);
+		
+		return self::$config;
     }
 }

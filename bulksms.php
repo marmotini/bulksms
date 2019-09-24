@@ -2,6 +2,7 @@
 
 include_once "autoloader.php";
 include_once "provider/provider.php";
+include_once "provider/provider-wrapper.php";
 
 use bulksms\provider\Message;
 use bulksms\provider\Providers;

@@ -18,7 +18,9 @@ final class Versions
   'guzzlehttp/guzzle' => '6.3.3@407b0cb880ace85c9b63c5f9551db498cb2d50ba',
   'guzzlehttp/promises' => 'v1.3.1@a59da6cf61d80060647ff4d3eb2c03a2bc694646',
   'guzzlehttp/psr7' => '1.6.1@239400de7a173fe9901b9ac7c06497751f00727a',
+  'infobip/infobip-api-php-client' => '2.3.1@fa80d9b6791971b2c0d84616dda67d73bca846f7',
   'lcobucci/jwt' => '3.3.1@a11ec5f4b4d75d1fcd04e133dede4c317aac9e18',
+  'netresearch/jsonmapper' => 'v0.9.0@1c3803fa6d1be7bd083fb853f1c6af56f96d1833',
   'nexmo/client' => '2.0.0@664082abac14f6ab9ceec9abaf2e00aeb7c17333',
   'nexmo/client-core' => '2.0.0@f73f7c50ec14b94dc7fda60cc13298f5901fc785',
   'ocramius/package-versions' => '1.4.0@a4d4b60d0e60da2487bd21a2c6ac089f85570dbb',
@@ -30,7 +32,7 @@ final class Versions
   'psr/http-message' => '1.0.1@f6561bf28d520154e4b0ec72be95418abe6d9363',
   'ralouphie/getallheaders' => '3.0.3@120b605dfeb996808c31b6477290a714d356e822',
   'zendframework/zend-diactoros' => '2.1.3@279723778c40164bcf984a2df12ff2c6ec5e61c1',
-  '__root__' => 'dev-master@ec78946190809ef5e5c2960aac648af90017ec3f',
+  '__root__' => 'dev-master@19e93d68746b4e8b22dddb8c1fb604436f84f87d',
 );
 
     private function __construct()

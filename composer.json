@@ -1,6 +1,7 @@
 {
     "require": {
         "nexmo/client": "^2.0",
-        "africastalking/africastalking": "^2.3"
+        "africastalking/africastalking": "^2.3",
+        "infobip/infobip-api-php-client": "^2.3"
     }
 }
