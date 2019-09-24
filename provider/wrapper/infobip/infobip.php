@@ -18,18 +18,21 @@ class InfoBip implements IProvider
         $this->client = new \infobip\api\client\SendSingleTextualSms($auth);
     }
 
-    public function sendMsg(Message $msg)
+    public function sendMessage(Message $message)
     {
         $body = \infobip\api\model\sms\mt\send\textual\SMSTextualRequest();
-        $body->setTo($msg->getRecipients()[0]);
-        $body->setText($msg->getMessage());
-        $body->setFrom($msg->getFrom());
+        $body->setTo($message->getRecipients()[0]);
+        $body->setText($message->getMessage());
+        $body->setFrom($message->getFrom());
 
         $response = $this->client->execute($body);
 
-        print("Infobip send sms $msg");
+        print("Infobip send sms $message");
     }
 
+    public function sendMessages(array $messages) {
+
+    }
     public function name(): string
     {
         return "infobip";

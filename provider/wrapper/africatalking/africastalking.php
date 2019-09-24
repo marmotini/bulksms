@@ -16,7 +16,7 @@ class AfricaTalking implements IProvider
         $this->service = new \AfricasTalking\SDK\AfricasTalking($username, $apiKey);
     }
 
-    public function sendMsg(Message $msg)
+    public function sendMessage(Message $msg)
     {
         $this->service->sms()->send([
             'to' => $msg->getRecipients()[0],
@@ -24,6 +24,11 @@ class AfricaTalking implements IProvider
             'from' => $msg->getFrom(),
             'enqueue' => 1,
         ]);
+    }
+
+    public function sendMessages(array $messages)
+    {
+        // TODO: Implement sendMessages() method.
     }
 
     public function name(): string

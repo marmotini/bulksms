@@ -18,7 +18,7 @@ class Nexmo implements IProvider
         $this->client = $client = new \Nexmo\Client($credentials);
     }
 
-    public function sendMsg(Message $msg)
+    public function sendMessage(Message $msg)
     {
         $this->client->message->send([
             'to' => $msg->getRecipients()[0],
@@ -27,6 +27,11 @@ class Nexmo implements IProvider
         ]);
 
         print("Nexmo send sms $msg");
+    }
+
+    public function sendMessages(array $messages)
+    {
+        // TODO: Implement sendMessages() method.
     }
 
     public function name(): string
