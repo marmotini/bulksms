@@ -20,7 +20,7 @@ class Providers
     private static $providers = [];
 
     /**
-     * Method adds a new provider implementation to the provider store variable. If the provider
+     * Method adds a new provider implementation to the pool of providers. If the provider
      * being added already exists, the method will not allow re-adding of the provider implementation.
      * If the name of the provider implementation is not set or is an empty string, an exception will
      * be thrown.
@@ -39,7 +39,7 @@ class Providers
     }
 
     /**
-     * Method retrieves a provider by specifying the provider name
+     * Method retrieves a provider by specifying the provider name in the parameter.
      *
      * @param string $name
      * @return object|null

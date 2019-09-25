@@ -1,7 +1,7 @@
 <?php namespace bulksms\provider;
 
 /**
- * MessageStatus enum implementation of sort. PHP doesn't do well on enums so, use this as an easy work around.
+ * MessageStatus enum implementation. PHP doesn't do well on enums so, use this as an easy work around.
  *
  * Class MessageStatus
  * @package bulksms\provider
@@ -14,7 +14,7 @@ abstract class MessageStatus
 }
 
 /**
- * Class holds a plain object of a message.
+ * Class holds a plain object implementation of a message.
  *
  * Class Message
  * @package bulksms\provider
@@ -112,7 +112,7 @@ class Message
 
     function save()
     {
-
+        //TODO
     }
 
     public function __toString()
@@ -130,5 +130,5 @@ class Message
  */
 function getMessage(int $id): ?Message
 {
-
+    //TODO
 }

@@ -19,8 +19,6 @@ use function bulksms\provider\getMessage;
  */
 class Dispatcher
 {
-    private static $provider;
-
     /**
      * Method listens to the queue, receives the message and sends the message to the provider configured.
      * In the case the provider is updated e.g from AfricasTalking to nexmo, the next message will use 'nexmo'
@@ -34,16 +32,16 @@ class Dispatcher
     {
         Queue::consume(function ($message) {
             // Fetch the provider
-            self::$provider = \bulksms\provider\Providers::getProvider(Config::getConfigProvider());
+            $provider = \bulksms\provider\Providers::getProvider(Config::getConfigProvider());
 
-            if (is_null(self::$provider))
+            if (is_null($provider))
                 throw new BulkSmsException("provider implementation is missing");
 
             // Retrieve the message from the database
             $msg = getMessage($message->id);
 
             // Send the message using the provider set
-            $status = self::$provider->sendMessage($msg);
+            $status = $provider->sendMessage($msg);
 
             // After sending the message, update the status and save back to the database.
             $msg->setStatus($status);

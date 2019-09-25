@@ -3,12 +3,9 @@
 include_once "autoloader.php";
 
 /**
- * Since the providers implementation are independent and can coexist on the own without direct coupling with the
- * rest of the implementation, we would still need a way to load the implementations to make them available to the
- * project. This is the purpose of this file and notably, of the below include statements.
- *
- * To use the providers supported, include thos file in the implementing script/file.
- *
+ * Since the providers implementation are independent and can coexist on their own without hard coupling with the
+ * rest of the library. We will need to pre-load the implementations to make the wrappers available to the
+ * project. This is the purpose of the file and notably, of the below include statements.
  */
 include_once "africatalking/africastalking.php";
 include_once "infobip/infobip.php";
