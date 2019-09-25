@@ -1,6 +1,6 @@
 # Queue - rabbitmq
 
-### Installation 
+### Installation (Linux)
 
 #### Erlang 
 
@@ -15,3 +15,8 @@
 Visit url `http://localhost:15672`
 Username: admin
 Password: password
+
+### Installation (Windows)
+
+1. Install Erlang https://www.erlang.org/downloads
+2. Install Rabbitmq https://www.rabbitmq.com/install-windows.html
