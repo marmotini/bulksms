@@ -1,4 +1,6 @@
-<?php namespace bulksms\provider;
+<?php namespace bulksms\message;
+
+use bulksms\Config;
 
 /**
  * MessageStatus enum implementation. PHP doesn't do well on enums so, use this as an easy work around.
@@ -21,15 +23,15 @@ abstract class MessageStatus
  */
 class Message
 {
-    private $id;
-    private $msg;
-    private $recipients;
-    private $from;
+    var $id;
+    var $msg;
+    var $recipients;
+    var $from;
 
-    private $status;
+    var $status;
 
-    private $parent;
-    private $order;
+    var $parent;
+    var $order;
 
     function __construct(string $msg, $from, array $recipients)
     {
@@ -110,9 +112,17 @@ class Message
         return $this->order;
     }
 
-    function save()
+    function save(): ?int
     {
-        //TODO
+        $store = new \bulksms\message\MessageStore();
+        $this->id = $store->save($this);
+        return $this->id;
+    }
+
+    function update(): bool
+    {
+        $store = new \bulksms\message\MessageStore();
+        return $store->update($this);
     }
 
     public function __toString()
@@ -122,13 +132,5 @@ class Message
     }
 }
 
-/**
- * Function retrieves the message from the db given message id.
- *
- * @param int $id
- * @return Message|null
- */
-function getMessage(int $id): ?Message
-{
-    //TODO
-}
+
+

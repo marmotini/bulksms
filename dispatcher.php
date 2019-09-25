@@ -7,8 +7,8 @@ include_once "exception/bulksms-exception.php";
 
 use bulksms\Config;
 use bulksms\exception\BulkSmsException;
+use bulksms\message\MessageStore;
 use bulksms\queue\Queue;
-use function bulksms\provider\getMessage;
 
 /**
  * Class encapsulating all features that entail queue listening and message sending / updating message status.
@@ -37,15 +37,18 @@ class Dispatcher
             if (is_null($provider))
                 throw new BulkSmsException("provider implementation is missing");
 
+            $msg = json_decode($message);
+
             // Retrieve the message from the database
-            $msg = getMessage($message->id);
+            $store = new MessageStore();
+            $record = $store->get($msg->id);
 
             // Send the message using the provider set
-            $status = $provider->sendMessage($msg);
+            $status = $provider->sendMessage($record);
 
             // After sending the message, update the status and save back to the database.
             $msg->setStatus($status);
-            $msg->save();
+            $msg->update();
         });
     }
 }

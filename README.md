@@ -6,10 +6,11 @@ To setup the project, follow the below instructions.
 
 1. Setup the queue. Follow the instructions in the `queue/README.md` file. 
 2. Ensure `config.json` has the correct credentials for the providers, queues e.t.c
-3. Update the dependencies by running `./composer install`
-4. Update the test file with a number of your test preference. Run the test file `php bulk-test.php`
-5. On a different console, run the dispatcher `php dispatcher.php`
-6. lookout for a text message from the test phone provided
+3. Setup message storage by following this instruction in `message/README.md`.
+4. Update the dependencies by running `./composer install`
+5. Update the test file with a number of your test preference. Run the test file `php bulk-test.php`
+6. On a different console, run the dispatcher `php dispatcher.php`
+7. lookout for a text message from the test phone provided
 
 ### Usage and design
 

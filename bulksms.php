@@ -2,8 +2,10 @@
 
 include_once "autoloader.php";
 
-use bulksms\provider\Message;
+use bulksms\exception\BulkSmsException;
+use bulksms\message\Message;
 use bulksms\queue\Queue;
+use function bulksms\message\getMessage;
 
 class BulkSms
 {
@@ -75,10 +77,11 @@ class BulkSms
     private function send(array $messages)
     {
         foreach ($messages as $msg) {
-            $msg->setStatus(\bulksms\provider\MessageStatus::Sending);
+            $msg->setStatus(\bulksms\message\MessageStatus::Sending);
             $msg->save();
 
             Queue::publish($msg);
+            echo "Record queued";
         }
     }
 

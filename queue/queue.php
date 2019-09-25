@@ -56,7 +56,7 @@ class Queue
         }
     }
 
-    public static function publish(\bulksms\provider\Message $msg)
+    public static function publish(\bulksms\message\Message $msg)
     {
         $message = new \PhpAmqpLib\Message\AMQPMessage(
             json_encode($msg),
@@ -75,5 +75,3 @@ class Queue
         self::$connection->close();
     }
 }
-
-Queue::setup();
