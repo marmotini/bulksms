@@ -32,6 +32,7 @@ class Nexmo implements IProvider
     /**
      * Send a single message to respective recipients. Nexmo php lib does no support multiple recipients thus
      * loop through all recipients and send the message to all.
+     * https://help.nexmo.com/hc/en-us/articles/360015794051-Can-I-call-multiple-recipients-in-one-API-request-
      *
      * @param Message $msg
      * @return string
@@ -40,17 +41,18 @@ class Nexmo implements IProvider
      */
     public function sendMessage(Message $msg): string
     {
-        $resp = [];
+        $status = "";
         foreach ($msg->getRecipients() as $recipient) {
-            $resp[] = $this->client->message->send([
+            $resp = $this->client->message->send([
                 'to' => $recipient,
                 'text' => $msg->getMessage(),
                 'from' => $msg->getFrom(),
             ]);
+
+            $status = $resp->getStatus();
         }
 
-        // TODO
-        return implode(", ", $resp);
+        return $status;
     }
 
     /**

@@ -18,6 +18,7 @@ class AfricaTalking implements IProvider
     private $service;
 
     private $statusMatch = ['success' => MessageStatus::Sent];
+
     /**
      * Ideally, all credentials and configuration setup should happen in the constructor and not when sending a message.
      * AfricaTalking constructor.
