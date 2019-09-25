@@ -1,5 +1,6 @@
 <?php namespace bulksms\queue;
 
+include_once "autoloader.php";
 use \PhpAmqpLib\Exchange\AMQPExchangeType;
 
 use bulksms\Config;
@@ -16,20 +17,14 @@ class Queue
     {
         try {
             self::$config = Config::get('rabbitmq');
-            $connection = new \PhpAmqpLib\Connection\AMQPStreamConnection(
+            self::$connection = new \PhpAmqpLib\Connection\AMQPStreamConnection(
                 self::$config->host,
                 self::$config->port,
                 self::$config->user,
                 self::$config->pass,
-                self::$config->vhost,
-            false,
-                'AMQPLAIN',
-                null,
-                'en_US',
-                60,
-                60, null, false, 30);
+                self::$config->vhost);
 
-            self::$channel = $connection->channel();
+            self::$channel = self::$connection->channel();
 
             self::$channel->queue_declare(self::$config->queue, false, true, false, false);
             self::$channel->exchange_declare(self::$config->exchange, AMQPExchangeType::DIRECT, false, true, false);
@@ -81,4 +76,4 @@ class Queue
     }
 }
 
-//register_shutdown_function('Queue::shutdown');
+Queue::setup();
