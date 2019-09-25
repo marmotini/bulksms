@@ -72,7 +72,7 @@ class Queue
             self::$config->queue,
             self::$config->consumertag,
             false,
-            false,
+            true,
             false,
             false,
             $cb);
