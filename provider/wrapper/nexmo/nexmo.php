@@ -46,9 +46,12 @@ class Nexmo implements IProvider
 
     public function sendMessages(array $messages): array
     {
+        $resp = [];
         foreach ($messages as $msg) {
-            $this->sendMessage($msg);
+            $resp[] = $this->sendMessage($msg);
         }
+
+        return $resp;
     }
 
     public function name(): string

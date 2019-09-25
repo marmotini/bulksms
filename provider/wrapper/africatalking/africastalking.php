@@ -40,6 +40,7 @@ class AfricaTalking implements IProvider
             $responses[] = $this->sendMessage($msg);
         }
 
+        // TODO
         return $responses;
     }
 

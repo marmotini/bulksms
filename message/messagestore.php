@@ -49,8 +49,13 @@ class MessageStore
     }
 
     function update(Message $msg): bool {
-        // TODO
-        return true;
+        $sql = "UPDATE message set `status` = \"$msg->status\" WHERE id = \"$msg->id\";";
+        if (mysqli_query($this->conn, $sql)) {
+            return true;
+        }
+
+        echo "ERROR: Could not execute $sql. " . mysqli_error($this->conn);
+        return false;
     }
 
     /**
