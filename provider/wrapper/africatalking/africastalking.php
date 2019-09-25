@@ -15,23 +15,21 @@ class AfricaTalking implements IProvider
         $this->service = new \AfricasTalking\SDK\AfricasTalking($config->username, $config->apikey);
     }
 
-    public function sendMessage(Message $msg)
+    public function sendMessage(Message $msg): string
     {
         return $this->service->sms()->send([
             'to' => $msg->getRecipients(),
             'message' => $msg->getMessage(),
 //            'from' => $msg->getFrom(),
             'enqueue' => 1,
-            'type'=> 'text',
+            'type' => 'text',
         ]);
     }
 
-    public function sendMessages(array $messages)
+    public function sendMessages(array $messages): array
     {
         foreach ($messages as $msg) {
             $resp = $this->sendMessage($msg);
-            echo '<pre>';
-            var_dump($resp);
         }
     }
 

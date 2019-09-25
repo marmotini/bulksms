@@ -4,9 +4,10 @@ use bulksms\provider\Message;
 
 interface IProvider
 {
-    public function sendMessage(Message $message);
+    public function sendMessage(Message $message): string;
 
-    public function sendMessages(array $messages);
+    public function sendMessages(array $messages): array;
 
     public function name(): string;
 }
+

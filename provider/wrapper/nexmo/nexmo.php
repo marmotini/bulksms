@@ -17,7 +17,7 @@ class Nexmo implements IProvider
         $this->client = $client = new \Nexmo\Client($credentials, ['base_api_url' => $config->url]);
     }
 
-    public function sendMessage(Message $msg)
+    public function sendMessage(Message $msg): string
     {
         foreach ($msg->getRecipients() as $recipient) {
             $this->client->message->send([
@@ -28,7 +28,7 @@ class Nexmo implements IProvider
         }
     }
 
-    public function sendMessages(array $messages)
+    public function sendMessages(array $messages): array
     {
         foreach ($messages as $msg) {
             $this->sendMessage($msg);

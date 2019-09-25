@@ -64,6 +64,9 @@ class BulkSms
     function sendMessages(array $messages)
     {
         foreach ($messages as $msg) {
+            $msg->setStatus(\bulksms\provider\MessageStatus::Sending);
+            $msg->save();
+
             $this->sendMessage($msg);
         }
     }

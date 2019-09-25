@@ -17,7 +17,7 @@ class InfoBip implements IProvider
         $this->client = new \infobip\api\client\SendSingleTextualSms($auth);
     }
 
-    public function sendMessage(Message $message)
+    public function sendMessage(Message $message): string
     {
         $destinations = array();
         foreach ($message->getRecipients() as $phoneNumber) {
@@ -34,7 +34,7 @@ class InfoBip implements IProvider
         $response = $this->client->execute($body);
     }
 
-    public function sendMessages(array $messages)
+    public function sendMessages(array $messages): array
     {
         foreach ($messages as $msg) {
             $this->sendMessage($msg);
