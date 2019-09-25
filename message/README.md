@@ -12,7 +12,7 @@ create table message (
 	`recipients` TEXT NOT NULL, 
 	`from` VARCHAR(255),
 	`status` VARCHAR(100), 
-	`parent` INT(11),
+	`unique_chunk_identifier` VARCHAR(255),
 	`order` INT(11)
 );
 ```

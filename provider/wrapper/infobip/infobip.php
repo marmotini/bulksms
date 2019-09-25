@@ -1,7 +1,7 @@
 <?php namespace bulksms\provider\wrapper\infobip;
 
 use bulksms\Config;
-use bulksms\provider\Message;
+use bulksms\message\Message;
 use bulksms\provider\Providers;
 use bulksms\provider\wrapper\IProvider;
 
@@ -16,6 +16,10 @@ class InfoBip implements IProvider
 {
     private $client;
 
+    /**
+     * Ideally, all credentials and configuration setup should happen in the constructor and not when sending a message.
+     * InfoBip constructor.
+     */
     function __construct()
     {
         $config = Config::get($this->name());
@@ -24,8 +28,15 @@ class InfoBip implements IProvider
         $this->client = new \infobip\api\client\SendSingleTextualSms($auth);
     }
 
+    /**
+     * Send a single message to multiple recipients.
+     *
+     * @param Message $message
+     * @return string
+     */
     public function sendMessage(Message $message): string
     {
+        // Setup multiple message recipients(1 or more recipients).
         $destinations = array();
         foreach ($message->getRecipients() as $phoneNumber) {
             $destination = new \infobip\api\model\Destination();
@@ -33,6 +44,7 @@ class InfoBip implements IProvider
             $destinations[] = $destination;
         }
 
+        // Setup message.
         $body = \infobip\api\model\sms\mt\send\textual\SMSTextualRequest();
         $body->setDestinations($destinations);
         $body->setText($message->getMessage());
@@ -44,6 +56,12 @@ class InfoBip implements IProvider
         return $response;
     }
 
+    /**
+     * Send multiple messages.
+     *
+     * @param array $messages
+     * @return array
+     */
     public function sendMessages(array $messages): array
     {
         $resp = [];
@@ -55,6 +73,11 @@ class InfoBip implements IProvider
         return $resp;
     }
 
+    /**
+     * Getter function that returns name of the wrapper service.
+     *
+     * @return string
+     */
     public function name(): string
     {
         return "infobip";

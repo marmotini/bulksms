@@ -17,6 +17,7 @@ class Queue
     {
         try {
             self::$config = Config::get('rabbitmq');
+
             self::$connection = new \PhpAmqpLib\Connection\AMQPStreamConnection(
                 self::$config->host,
                 self::$config->port,

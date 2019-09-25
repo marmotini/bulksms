@@ -17,6 +17,9 @@ class MessageStore
     {
         $mysqlConfig = Config::get("mysql");
         $this->conn = mysqli_connect($mysqlConfig->host, $mysqlConfig->user, $mysqlConfig->pass, $mysqlConfig->db);
+        if (!$this->conn){
+            throw new \bulksms\exception\BulkSmsException("Mysql Connection failed.");
+        }
     }
 
     /**
@@ -30,13 +33,15 @@ class MessageStore
         $recipients = mysqli_real_escape_string($this->conn, implode(',', $msgObj->recipients));
         $msgStr = mysqli_real_escape_string($this->conn, $msgObj->msg);
 
+        echo $msgStr;
+
         $sql = "INSERT INTO message values(
                 NULL, 
                 \"$msgStr\", 
                 \"$recipients\", 
                 \"$msgObj->from\",
                  \"$msgObj->status\", 
-                \"$msgObj->parent\", 
+                \"$msgObj->uniqueChunkIdentifier\", 
                 \"$msgObj->order\");";
 
         if (mysqli_query($this->conn, $sql)) {
@@ -77,7 +82,7 @@ class MessageStore
             $msg = new Message($row['msg'], $row['from'], explode(',', $row['recipients']));
             $msg->setId($row['id']);
             $msg->setStatus($row['status']);
-            $msg->setParent($row['parent']);
+            $msg->setUniqueChunkIdentifier($row['unique_chunk_identifier']);
             $msg->setOrder($row['order']);
             return $msg;
         }

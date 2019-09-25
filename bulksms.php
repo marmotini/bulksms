@@ -32,6 +32,9 @@ class BulkSms
             return [$msg];
         }
 
+        // Generate a unique id to identify the chunks
+        $s = uniqid(time(), true);
+
         // Since we are adding pagination prefix to the message, take into account the number of characters
         // that are projected to be used in the pagination and take that into consideration.
         $limit = $this->chunkLimit - $this->chunkPaginationChars;
@@ -39,7 +42,6 @@ class BulkSms
         $chunks = str_split($msg->getMessage(), $limit);
         $chunksLen = sizeof($chunks);
 
-        $parent = null;
         $chunkMessages = [];
 
         for ($counter = 0, $i = 0; $i < $chunksLen; $i++) {
@@ -50,17 +52,8 @@ class BulkSms
 
             $m = new Message($body, $msg->getFrom(), $msg->getRecipients());
 
-            // To enable tracking of which message chunk belongs to which chunks list, the first chunk is set
-            // as the parent of the following chunks.
-            if ($i == 0) {
-                $parent = $m;
-                $m->setParent(null);
-            } else {
-                $m->setParent($parent);
-            }
-
-            // Set the order of the chunks.
-            $m->setOrder($counter);
+            $m->setOrder($counter); // Set the order of the chunks.
+            $m->setUniqueChunkIdentifier($s);  // Set the same unique identifier for every messages.
 
             $chunkMessages[] = $m;
         }

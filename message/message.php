@@ -3,19 +3,6 @@
 use bulksms\Config;
 
 /**
- * MessageStatus enum implementation. PHP doesn't do well on enums so, use this as an easy work around.
- *
- * Class MessageStatus
- * @package bulksms\provider
- */
-abstract class MessageStatus
-{
-    const Sending = "Sending";
-    const Sent = "Sent";
-    const Failed = "Failed";
-}
-
-/**
  * Class holds a plain object implementation of a message.
  *
  * Class Message
@@ -30,7 +17,7 @@ class Message
 
     var $status;
 
-    var $parent;
+    var $uniqueChunkIdentifier;
     var $order;
 
     function __construct(string $msg, $from, array $recipients)
@@ -92,14 +79,14 @@ class Message
         return $this->status;
     }
 
-    function setParent(Message $parent = null)
+    function setUniqueChunkIdentifier(string $uid)
     {
-        $this->parent = $parent;
+        $this->uniqueChunkIdentifier = $uid;
     }
 
-    function getParent(): Message
+    function getUniqueChunkIdentifier(): string
     {
-        return $this->parent;
+        return $this->uniqueChunkIdentifier;
     }
 
     function setOrder(int $order = 0)

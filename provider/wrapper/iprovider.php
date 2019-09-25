@@ -1,7 +1,5 @@
 <?php namespace bulksms\provider\wrapper;
 
-use bulksms\provider\Message;
-
 /**
  * All provider wrappers that are to be implemented must always implement this interface.
  *
@@ -13,10 +11,10 @@ interface IProvider
     /**
      * Method sends the message to the respective recipients set in the message object.
      *
-     * @param Message $message
+     * @param \bulksms\message\Message $message
      * @return string
      */
-    public function sendMessage(Message $message): string;
+    public function sendMessage(\bulksms\message\Message $message): string;
 
     /**
      * Method enables sending multiple messages at once via the provider underlying api feature.

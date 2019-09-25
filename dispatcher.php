@@ -37,7 +37,7 @@ class Dispatcher
             if (is_null($provider))
                 throw new BulkSmsException("provider implementation is missing");
 
-            $msg = json_decode($message);
+            $msg = json_decode($message->body);
 
             // Retrieve the message from the database
             $store = new MessageStore();
@@ -47,8 +47,8 @@ class Dispatcher
             $status = $provider->sendMessage($record);
 
             // After sending the message, update the status and save back to the database.
-            $msg->setStatus($status);
-            $msg->update();
+            $record->setStatus($status);
+            $record->update();
         });
     }
 }

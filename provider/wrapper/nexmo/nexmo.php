@@ -3,7 +3,7 @@
 use bulksms\Config;
 use bulksms\provider\Providers;
 use bulksms\provider\wrapper\IProvider;
-use bulksms\provider\Message;
+use bulksms\message\Message;
 
 /**
  * Nexmo api wrapper. Implementation uses Nexmo php client library instead of implementing the api calls using
@@ -29,6 +29,15 @@ class Nexmo implements IProvider
         $this->client = $client = new \Nexmo\Client($credentials, ['base_api_url' => $config->url]);
     }
 
+    /**
+     * Send a single message to respective recipients. Nexmo php lib does no support multiple recipients thus
+     * loop through all recipients and send the message to all.
+     *
+     * @param Message $msg
+     * @return string
+     * @throws \Nexmo\Client\Exception\Request
+     * @throws \Nexmo\Client\Exception\Server
+     */
     public function sendMessage(Message $msg): string
     {
         $resp = [];
@@ -44,6 +53,14 @@ class Nexmo implements IProvider
         return implode(", ", $resp);
     }
 
+    /**
+     * Send multiple messages.
+     *
+     * @param array $messages
+     * @return array
+     * @throws \Nexmo\Client\Exception\Request
+     * @throws \Nexmo\Client\Exception\Server
+     */
     public function sendMessages(array $messages): array
     {
         $resp = [];
@@ -54,6 +71,11 @@ class Nexmo implements IProvider
         return $resp;
     }
 
+    /**
+     * Getter function that returns name of the wrapper service.
+     *
+     * @return string
+     */
     public function name(): string
     {
         return "nexmo";
