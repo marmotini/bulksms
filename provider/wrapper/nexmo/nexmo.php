@@ -5,10 +5,22 @@ use bulksms\provider\Providers;
 use bulksms\provider\wrapper\IProvider;
 use bulksms\provider\Message;
 
+/**
+ * Nexmo api wrapper. Implementation uses Nexmo php client library instead of implementing the api calls using
+ * Nexmo rest api.
+ *
+ * Class Nexmo
+ * @package bulksms\provider\wrapper\nexmo
+ */
 class Nexmo implements IProvider
 {
     private $client;
 
+    /**
+     * Ideally, all credentials and configuration setup should happen in the constructor and not when sending a message.
+     *
+     * Nexmo constructor.
+     */
     function __construct()
     {
         $config = Config::get($this->name());
@@ -41,4 +53,5 @@ class Nexmo implements IProvider
     }
 }
 
+// Add Nexmo provider to the pool of providers supported
 Providers::addProvider(new Nexmo());

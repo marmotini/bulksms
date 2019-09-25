@@ -5,6 +5,13 @@ use bulksms\provider\Message;
 use bulksms\provider\Providers;
 use bulksms\provider\wrapper\IProvider;
 
+/**
+ * InfoBip api wrapper. Implementation uses InfoBip php client library instead of implementing the api calls using
+ * InfoBip rest api.
+ *
+ * Class InfoBip
+ * @package bulksms\provider\wrapper\infobip
+ */
 class InfoBip implements IProvider
 {
     private $client;
@@ -47,4 +54,5 @@ class InfoBip implements IProvider
     }
 }
 
+// Add infobip provider to the pool of providers supported
 Providers::addProvider(new InfoBip());

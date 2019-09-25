@@ -1,5 +1,11 @@
 <?php namespace bulksms\provider;
 
+/**
+ * MessageStatus enum implementation of sort. PHP doesn't do well on enums so, use this as an easy work around.
+ *
+ * Class MessageStatus
+ * @package bulksms\provider
+ */
 abstract class MessageStatus
 {
     const Sending = "Sending";
@@ -7,6 +13,12 @@ abstract class MessageStatus
     const Failed = "Failed";
 }
 
+/**
+ * Class holds a plain object of a message.
+ *
+ * Class Message
+ * @package bulksms\provider
+ */
 class Message
 {
     private $id;
@@ -98,6 +110,11 @@ class Message
         return $this->order;
     }
 
+    function save()
+    {
+
+    }
+
     public function __toString()
     {
         $recipientsStr = implode(',', $this->recipients);
@@ -105,10 +122,13 @@ class Message
     }
 }
 
-function saveMessage(Message $msg) {
-
-}
-
-function getMessage(int $id): ?Message{
+/**
+ * Function retrieves the message from the db given message id.
+ *
+ * @param int $id
+ * @return Message|null
+ */
+function getMessage(int $id): ?Message
+{
 
 }
