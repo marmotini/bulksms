@@ -27,7 +27,7 @@ class AfricaTalking implements IProvider
         return $this->service->sms()->send([
             'to' => $msg->getRecipients(),
             'message' => $msg->getMessage(),
-//            'from' => $msg->getFrom(),
+            'from' => $msg->getFrom(),
             'enqueue' => 1,
             'type' => 'text',
         ]);
@@ -35,9 +35,12 @@ class AfricaTalking implements IProvider
 
     public function sendMessages(array $messages): array
     {
+        $responses = [];
         foreach ($messages as $msg) {
-            $resp = $this->sendMessage($msg);
+            $responses[] = $this->sendMessage($msg);
         }
+
+        return $responses;
     }
 
     public function name(): string

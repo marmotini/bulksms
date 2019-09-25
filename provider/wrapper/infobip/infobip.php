@@ -39,6 +39,7 @@ class InfoBip implements IProvider
         $body->setFrom($message->getFrom());
 
         $response = $this->client->execute($body);
+        return $response;
     }
 
     public function sendMessages(array $messages): array

@@ -9,8 +9,8 @@ use bulksms\queue\Queue;
 
 Queue::setup();
 
-Config::updateConfigProvider("nexmo");
-//Config::updateConfigProvider("africatalking");
+//Config::updateConfigProvider("nexmo");
+Config::updateConfigProvider("africatalking");
 //Config::updateConfigProvider("infobip");
 $bulkSms = new BulkSms();
 

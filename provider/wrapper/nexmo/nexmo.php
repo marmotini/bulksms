@@ -31,13 +31,17 @@ class Nexmo implements IProvider
 
     public function sendMessage(Message $msg): string
     {
+        $resp = [];
         foreach ($msg->getRecipients() as $recipient) {
-            $this->client->message->send([
+            $resp[] = $this->client->message->send([
                 'to' => $recipient,
                 'text' => $msg->getMessage(),
                 'from' => $msg->getFrom(),
             ]);
         }
+
+        // TODO
+        return implode(", ", $resp);
     }
 
     public function sendMessages(array $messages): array
