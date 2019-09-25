@@ -1,5 +1,15 @@
 # Bulk-sms SC7 test
 
+### Setup 
+
+To setup the project, follow the below instructions. 
+
+1. Setup the queue. Follow the instructions in the `queue/README.md` file. 
+2. Ensure `config.json` has the correct credentials for the providers, queues e.t.c
+3. Update the test file with a number of your test preference. Run the test file `php bulk-test.php`
+4. On a different console, run the dispatcher `php dispatcher.php`
+5. lookout for a text message from the test phone provided
+
 ### Usage and design
 
 > Sending bulksms (bulksms)
@@ -8,7 +18,7 @@ Bulksms is the entry point to the bulksms service. Example of calling the servic
 ```php
 $bulkSms = new BulkSms();
 
-$from = '+2541234567';
+$from = '+254123456789';
 $recipients = ["+2541234567"];
 
 $helloStr = str_repeat("Hello testing", 100);
@@ -36,7 +46,7 @@ To send a message to multiple recipients, simply add the recipient contacts in t
 Example:
 
 ```php
-$from = '+2541234567';
+$from = '+254123456789';
 $recipients = ['+2561234567', '+2541234567', '+2551234567'];
 
 $bulkSms->sendMessage(new Message("Campaign", $from, $recipients));
